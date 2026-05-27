@@ -1,0 +1,9 @@
+title: Home
+
+fields:
+  blocks:
+    label: Seiteninhalt
+    type: blocks
+    fieldsets:
+      - hero
+      - intro

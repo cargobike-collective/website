@@ -1,0 +1,22 @@
+name: Hero
+icon: image
+preview: image
+
+fields:
+  image:
+    label: Bild
+    type: files
+    query: page.images
+    multiple: false
+    max: 1
+    uploads:
+      template: image
+  alt:
+    label: Alt-Text
+    type: text
+    help: Bildbeschreibung für Screenreader und SEO.
+  anchor:
+    label: Anker-ID
+    type: text
+    default: start
+    width: 1/2

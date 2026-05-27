@@ -1,0 +1,31 @@
+Title: Home
+
+----
+
+Blocks:
+
+[
+  {
+    "content": {
+      "image": "cargobike-collective-shooting-03.jpg",
+      "alt": "Menschen mit Lastenrädern auf der Straße",
+      "anchor": "start"
+    },
+    "id": "hero-block",
+    "isHidden": false,
+    "type": "hero"
+  },
+  {
+    "content": {
+      "heading": "bringing people together, moving cities forward",
+      "animation": "true"
+    },
+    "id": "intro-block",
+    "isHidden": false,
+    "type": "intro"
+  }
+]
+
+----
+
+Uuid: jea6xczidegzn6se

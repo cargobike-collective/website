@@ -1,0 +1,35 @@
+{
+  "name": "cargobike-collective",
+  "description": "Cargo Bike Collective website built with Kirby",
+  "type": "project",
+  "keywords": [
+    "kirby",
+    "cms",
+    "cargobike-collective",
+    "cargobike"
+  ],
+  "authors": [
+    {
+      "name": "Moritz Stückler",
+      "email": "moritz@bitbetter.de",
+      "homepage": "https://bitbetter.de"
+    }
+  ],
+  "homepage": "https://www.cargobike-collective.org/",
+  "require": {
+    "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+    "getkirby/cms": "^5.2"
+  },
+  "config": {
+    "allow-plugins": {
+      "getkirby/composer-installer": true
+    },
+    "optimize-autoloader": true
+  },
+  "scripts": {
+    "start": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php -S localhost:8000 kirby/router.php"
+    ]
+  }
+}

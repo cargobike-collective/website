@@ -1,0 +1,17 @@
+name: Intro
+icon: title
+preview: fields
+
+fields:
+  heading:
+    label: Überschrift
+    type: writer
+    inline: true
+    help: Haupt-Überschrift der Seite (H1).
+  animation:
+    label: Animation anzeigen
+    type: toggle
+    default: true
+    text:
+      - "Aus"
+      - "An"
