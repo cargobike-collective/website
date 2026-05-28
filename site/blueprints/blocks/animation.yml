@@ -1,0 +1,30 @@
+name: Animation
+icon: video
+preview: fields
+
+fields:
+  file:
+    label: Lottie-Datei
+    type: files
+    query: page.files.filterBy("template", "animation")
+    multiple: false
+    max: 1
+    uploads:
+      template: animation
+    help: Lottie-Animation (.lottie oder .json).
+  height:
+    label: Höhe (px)
+    type: number
+    default: 500
+    min: 0
+    width: 1/3
+  loop:
+    label: Endlosschleife
+    type: toggle
+    default: true
+    width: 1/3
+  autoplay:
+    label: Autoplay
+    type: toggle
+    default: true
+    width: 1/3

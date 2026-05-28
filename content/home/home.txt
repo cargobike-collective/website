@@ -2,27 +2,268 @@ Title: Home
 
 ----
 
-Blocks:
+Layout:
 
 [
   {
-    "content": {
-      "image": "cargobike-collective-shooting-03.jpg",
-      "alt": "Menschen mit Lastenrädern auf der Straße",
-      "anchor": "start"
-    },
-    "id": "hero-block",
-    "isHidden": false,
-    "type": "hero"
+    "id": "layout-hero",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-hero",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "image": "cargobike-collective-shooting-03.jpg",
+              "alt": "Menschen mit Lastenrädern auf der Straße",
+              "anchor": "start"
+            },
+            "id": "hero-block",
+            "isHidden": false,
+            "type": "hero"
+          }
+        ]
+      }
+    ]
   },
   {
-    "content": {
-      "heading": "bringing people together, moving cities forward",
-      "animation": "true"
-    },
-    "id": "intro-block",
-    "isHidden": false,
-    "type": "intro"
+    "id": "layout-intro",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-intro",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "heading": "bringing people together, moving cities forward"
+            },
+            "id": "intro-block",
+            "isHidden": false,
+            "type": "intro"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-animation",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-animation",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "file": "01_CBC_Animation_LOOP_Lottie.lottie",
+              "height": "500",
+              "loop": "true",
+              "autoplay": "true"
+            },
+            "id": "animation-block",
+            "isHidden": false,
+            "type": "animation"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-section-header-lets-roll",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-section-header-lets-roll",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "eyebrow": "let's roll",
+              "text": "Wir bringen Menschen zusammen und beteiligen uns an der Entwicklung lebenswerter Städte. Wir rollen los – das bewegt uns:",
+              "background": "right",
+              "backgroundColor": "#f0ff39",
+              "anchor": ""
+            },
+            "id": "section-header-lets-roll",
+            "isHidden": false,
+            "type": "section-header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-features",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-feature-carry",
+        "width": "1/3",
+        "blocks": [
+          {
+            "content": {
+              "heading": "Carry",
+              "text": "Wir sind überzeugt, dass Lastenräder dazu beitragen, Städte für alle Menschen lebenswerter zu machen. Vom Familientransport bis zur urbanen Logistik: Per Pedale bringen wir vielfältige Fracht nachhaltig ans Ziel."
+            },
+            "id": "feature-carry",
+            "isHidden": false,
+            "type": "feature"
+          }
+        ]
+      },
+      {
+        "id": "col-feature-connect",
+        "width": "1/3",
+        "blocks": [
+          {
+            "content": {
+              "heading": "Connect",
+              "text": "Wir organisieren Events, die Menschen vor Ort zusammenbringen. Jede:r ist willkommen! Wir feiern zusammen, teilen Ideen, Wissen und Werkzeuge und schaffen gemeinsam Gutes und Neues."
+            },
+            "id": "feature-connect",
+            "isHidden": false,
+            "type": "feature"
+          }
+        ]
+      },
+      {
+        "id": "col-feature-inspire",
+        "width": "1/3",
+        "blocks": [
+          {
+            "content": {
+              "heading": "Inspire",
+              "text": "Um die Vorteile fahrradzentrierter Städte sichtbar zu machen, entwickeln wir inspirierenden Content. Wir suchen nachhaltige Lösungen für urbane Mobilität, sammeln und teilen Stories aus dem Lastenrad-Alltag."
+            },
+            "id": "feature-inspire",
+            "isHidden": false,
+            "type": "feature"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-section-header-events",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-section-header-events",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "eyebrow": "events",
+              "text": "Hast du weitere Veranstaltungstipps für die lokale Lastenrad Community in Hamburg und Stuttgart? Schick rüber!",
+              "background": "left",
+              "backgroundColor": "#f0ff39",
+              "anchor": "events"
+            },
+            "id": "section-header-events",
+            "isHidden": false,
+            "type": "section-header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-section-header-about",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-section-header-about",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "eyebrow": "about",
+              "text": "Wir haben das CARGOBIKE COLLECTIVE als ein Haufen entspannter Fahrrad-Enthusiasten gegründet. Jede:r ist willkommen, aber wir dulden keine Form von Rassismus, Sexismus, Homophobie, Hass oder Gewalt.",
+              "background": "right",
+              "backgroundColor": "#f0ff39",
+              "anchor": "about"
+            },
+            "id": "section-header-about",
+            "isHidden": false,
+            "type": "section-header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-section-header-newsletter",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-section-header-newsletter",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "eyebrow": "newsletter",
+              "text": "Hin und wieder möchten wir euch Neuigkeiten und Nettigkeiten vom CARGOBIKE COLLECTIVE in die Mailbox werfen, einverstanden?",
+              "background": "left",
+              "backgroundColor": "#f0ff39",
+              "anchor": "newsletter"
+            },
+            "id": "section-header-newsletter",
+            "isHidden": false,
+            "type": "section-header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-section-header-contact",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-section-header-contact",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "eyebrow": "contact",
+              "text": "Falls du nicht gerade beide Hände am Lenker hast: Schreib uns!",
+              "background": "right",
+              "backgroundColor": "#f0ff39",
+              "anchor": "contact"
+            },
+            "id": "section-header-contact",
+            "isHidden": false,
+            "type": "section-header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "layout-section-header-social",
+    "attrs": [],
+    "columns": [
+      {
+        "id": "col-section-header-social",
+        "width": "1/1",
+        "blocks": [
+          {
+            "content": {
+              "eyebrow": "#welovecargobikes",
+              "text": "",
+              "background": "none",
+              "backgroundColor": "#f0ff39",
+              "anchor": ""
+            },
+            "id": "section-header-social",
+            "isHidden": false,
+            "type": "section-header"
+          }
+        ]
+      }
+    ]
   }
 ]
 

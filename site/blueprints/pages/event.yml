@@ -1,0 +1,50 @@
+title: Event
+
+# Sort events chronologically by their date.
+num: '{{ page.date.toDate("Ymd") }}'
+
+options:
+  preview: false
+
+fields:
+  date:
+    label: Datum
+    type: date
+    time: true
+    display: DD.MM.YYYY
+    width: 1/2
+  city:
+    label: Stadt
+    type: tags
+    min: 1
+    max: 1
+    separator: ","
+    options:
+      query: site.find("events").children.pluck("city", ",", true)
+    width: 1/2
+  link:
+    label: Link
+    type: link
+    help: Externe URL oder interne Seite. Entweder Link oder Beschreibung – nicht beides.
+    options:
+      - url
+      - page
+      - email
+      - tel
+    when:
+      text: ""
+  text:
+    label: Beschreibung
+    type: textarea
+    size: large
+    font: sans-serif
+    help: Entweder Beschreibung oder Link – nicht beides.
+    buttons:
+      - headlines
+      - bold
+      - italic
+      - link
+      - ul
+      - ol
+    when:
+      link: ""

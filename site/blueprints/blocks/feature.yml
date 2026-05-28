@@ -1,0 +1,17 @@
+name: Feature
+icon: text
+preview: fields
+
+fields:
+  heading:
+    label: Überschrift
+    type: text
+    help: Wird als H3 in Großbuchstaben dargestellt.
+  text:
+    label: Text
+    type: textarea
+    size: small
+    buttons:
+      - bold
+      - italic
+      - link

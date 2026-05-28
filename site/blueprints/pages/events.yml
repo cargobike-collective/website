@@ -1,0 +1,15 @@
+title: Events
+
+options:
+  preview: false
+
+sections:
+  events:
+    label: Events
+    headline: Events
+    type: pages
+    template: event
+    create: event
+    sortBy: date desc
+    info: "{{ page.date.toDate('d.m.Y, H:i') }} – {{ page.city }}"
+    empty: Noch keine Events angelegt.

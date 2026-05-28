@@ -22,7 +22,24 @@
   <?php snippet('header') ?>
 
   <main>
-    <?= $page->blocks()->toBlocks() ?>
+    <?php foreach ($page->layout()->toLayouts() as $layout): ?>
+      <?php
+        $columns = $layout->columns();
+        $multi   = $columns->count() > 1;
+      ?>
+      <div class="layout-row<?= $multi ? ' layout-row--multi' : '' ?>">
+        <?php foreach ($columns as $column): ?>
+          <?php
+            // Convert "1/3", "1/2" etc. into a 12-column grid span.
+            [$num, $den] = array_pad(explode('/', $column->width()), 2, 1);
+            $span = (int) round((int) $num * 12 / max(1, (int) $den));
+          ?>
+          <div class="layout-col" style="--span: <?= $span ?>">
+            <?= $column->blocks() ?>
+          </div>
+        <?php endforeach ?>
+      </div>
+    <?php endforeach ?>
   </main>
 
   <?= js('assets/js/main.js', ['defer' => true]) ?>
