@@ -2,8 +2,9 @@
 /** @var \Kirby\Cms\Block $block */
 $heading = $block->heading();
 $text    = $block->text();
+$anchor  = $block->anchor();
 ?>
-<div class="feature">
+<div class="feature"<?= $anchor->isNotEmpty() ? ' id="' . $anchor->esc('attr') . '"' : '' ?>>
   <?php if ($heading->isNotEmpty()): ?>
     <h3 class="display-s"><?= $heading->html() ?></h3>
   <?php endif ?>

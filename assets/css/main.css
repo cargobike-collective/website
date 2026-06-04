@@ -3,47 +3,11 @@
    (full rebuild; no Webflow classes — see PLAN.md)
    ============================================================ */
 
-/* --- Fonts ------------------------------------------------- */
-@font-face {
-  font-family: "Herokid";
-  src: url("../fonts/Herokid-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Herokid";
-  src: url("../fonts/HerokidItalic-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Herokid Condensed";
-  src: url("../fonts/Herokid-SemiBoldCondensed.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Herokid Expanded";
-  src: url("../fonts/Herokid-RegularExpanded.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Herokid Narrow";
-  src: url("../fonts/HerokidItalic-RegularNarrow.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
 /* --- Design tokens ----------------------------------------- */
 :root {
   --color-dark:   #23282b;
-  --color-light:  #f8f9ff;
+  --color-bg:     #fff;     /* page background (Webflow body default) */
+  --color-light:  #f8f9ff;  /* off-white: light text/borders on dark */
   --color-signal: #f0ff39;  /* filled buttons / logo hover */
   --color-accent: #f0fc62;  /* link hover */
   --color-grey:   #d8d8d8;
@@ -53,34 +17,36 @@
   --font-condensed: "Herokid Condensed", "Herokid", system-ui, sans-serif;
   --font-narrow: "Herokid Narrow", "Herokid", system-ui, sans-serif;
 
-  --container-max: 1280px;
+  --container-max: 1280px;  /* "wide" range: animation, feature columns */
+  --content-width: 950px;   /* "content" range: reading width for text */
   --container-pad: clamp(1rem, 4vw, 3rem);
 
   --header-height: 100px;
 }
 
-/* --- Reset-lite -------------------------------------------- */
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
-
+/* --- Base -------------------------------------------------- */
 body {
-  margin: 0;
   font-family: var(--font-base);
   font-weight: 400;
   color: var(--color-dark);
-  background: var(--color-light);
+  background: var(--color-bg);
   line-height: 1.4;
   overflow-x: clip;
+
+  /* Sticky-footer layout: full-height column so a short page still pushes
+     the footer to the bottom of the viewport (not position-based). */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 body.nav-open { overflow: hidden; }
 
-a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; }
-ul { margin: 0; padding: 0; list-style: none; }
+/* <main> grows to fill the leftover height between header and footer. */
+main {
+  flex: 1 0 auto;
+}
 
 .container {
   width: 100%;
@@ -116,8 +82,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* --- Header ------------------------------------------------ */
 .hero-bar {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 100;
   background: var(--color-dark);
   color: var(--color-light);
@@ -152,24 +117,32 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* --- Hero -------------------------------------------------- */
 .hero {
-  height: 85vh;
+  width: 100%;
   overflow: hidden;
 }
+.hero--large  { height: 85vh; }
+.hero--medium { height: 60vh; }
+.hero--small  { height: 40vh; }
+/* .hero--auto: height follows the image's intrinsic aspect ratio */
+
 .hero__image {
   display: block;
   width: 100%;
+}
+/* Fixed-height variants: cover-crop the image */
+.hero--large .hero__image,
+.hero--medium .hero__image,
+.hero--small .hero__image {
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
 }
+.hero--auto .hero__image {
+  height: auto;
+}
 
 /* --- Intro ------------------------------------------------- */
-.intro {
-  margin-top: 120px;
-}
 .intro__header {
-  max-width: 950px;
-  margin-inline: auto;
   min-height: 200px;
   padding-block: 20px;
   display: flex;
@@ -187,12 +160,22 @@ ul { margin: 0; padding: 0; list-style: none; }
   line-height: 1.3;
 }
 /* --- Section header --------------------------------------- */
+/* Section headers run full-bleed so an optional background color
+   (sectionBackground) reaches the viewport edges; the text content stays
+   centered at reading width via .header. */
 .section-header {
-  margin-top: 120px;
+  padding-inline: var(--container-pad);
+}
+.section-header--filled {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+.section-header--dark .display-l,
+.section-header--dark .header-paragraph {
+  color: var(--color-light);
 }
 .header {
   position: relative;
-  max-width: 950px;
+  max-width: var(--content-width);
   margin-inline: auto;
 }
 .header-content {
@@ -243,31 +226,69 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* --- Animation (Lottie) ------------------------------------ */
+/* Runs full-bleed so an optional background color reaches the viewport
+   edges; the player itself stays at container width, centered. */
 .animation {
-  max-width: var(--container-max);
-  margin-inline: auto;
   padding-inline: var(--container-pad);
   text-align: center;
+}
+.animation--filled {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
 }
 .animation dotlottie-player {
   display: block;
   width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
   height: var(--animation-height, 500px);
 }
 
 /* --- Layout rows (Kirby Layouts field) --------------------- */
-/* Single-column rows are bare flow wrappers so full-bleed blocks (hero)
-   remain edge-to-edge. Multi-column rows add a container + grid. */
+/* <main> is a full-bleed grid (after joshwcomeau.com/css/full-bleed).
+   Three named column ranges let each row pick its horizontal width and
+   the outer minmax() tracks supply the page gutters, so blocks no longer
+   constrain themselves:
+     content → reading width    (text: intro, section-header)
+     wide    → container width   (animation, multi-column rows)
+     full    → edge-to-edge      (hero images)
+   Direct children default to the content column; opt into wide/full with a
+   modifier class. Applied via .bleed-grid so any template can use it. */
+.bleed-grid {
+  display: grid;
+  align-content: start; /* pack rows to the top; don't stretch/center vertically */
+  grid-template-columns:
+    [full-start]
+      minmax(var(--container-pad), 1fr)
+    [wide-start]
+      minmax(0, calc((var(--container-max) - var(--content-width)) / 2))
+    [content-start]
+      min(100% - var(--container-pad) * 2, var(--content-width))
+    [content-end]
+      minmax(0, calc((var(--container-max) - var(--content-width)) / 2))
+    [wide-end]
+      minmax(var(--container-pad), 1fr)
+    [full-end];
+}
+.bleed-grid > *                 { grid-column: content; }
+.bleed-grid > .layout-row--wide { grid-column: wide; }
+.bleed-grid > .layout-row--full { grid-column: full; }
+
+/* Home page: even vertical rhythm between layout rows via the grid's
+   row-gap (replaces the old per-block margin-top). Only row-gap, so the
+   named columns and full-bleed rows stay intact. */
+.page-home main {
+  row-gap: 120px;
+}
+
+/* Multi-column rows: 12-col inner grid within the wide range. */
 .layout-row--multi {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--container-pad);
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 0;
 }
 .layout-row--multi > .layout-col {
   grid-column: span var(--span, 12);
+  min-width: 0; /* let columns shrink instead of overflowing the grid */
 }
 @media (max-width: 720px) {
   .layout-row--multi {
@@ -276,6 +297,31 @@ ul { margin: 0; padding: 0; list-style: none; }
   .layout-row--multi > .layout-col {
     grid-column: 1 / -1;
   }
+}
+
+/* --- Sticker pile ------------------------------------------ */
+/* Stickers are placed absolutely inside a fixed-aspect canvas; their
+   position (left/top), size (width) and rotation come from per-sticker
+   inline styles (percentages), so the Panel canvas and the frontend stay
+   WYSIWYG. Array order = stacking order. */
+.sticker-canvas {
+  position: relative;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  aspect-ratio: 1280 / 600;
+  min-height: 360px; /* keeps room for the pile on narrow screens */
+  overflow: visible;
+}
+.sticker {
+  position: absolute;
+  transform-origin: center center;
+}
+.sticker__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* --- Feature (column heading + italic paragraph) ----------- */
@@ -382,4 +428,262 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .nav__menu-footer {
   padding-block: 2rem;
+}
+
+/* --- Footer ------------------------------------------------ */
+.site-footer {
+  background: var(--color-dark);
+  color: var(--color-light);
+  font-family: var(--font-base);
+  font-size: 14px;
+}
+.site-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 20px;
+}
+.site-footer__copy {
+  margin: 0;
+}
+/* Herokid renders © very small, so set the sign in a system font, slightly larger. */
+.site-footer__copysign {
+  font-family: system-ui, sans-serif;
+  font-size: 1.2em;
+}
+.site-footer__links {
+  display: flex;
+  gap: 20px;
+}
+.site-footer__link {
+  color: var(--color-light);
+  transition: color 0.2s ease;
+}
+.site-footer__link:hover {
+  color: var(--color-signal);
+}
+@media (max-width: 720px) {
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+/* --- Event detail ------------------------------------------ */
+.event {
+  padding-block: clamp(40px, 8vw, 100px);
+}
+/* Two-column layout (after luma.com): square cover in a sticky left
+   aside, content on the right; stacks to one column on small screens. */
+.event__layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+.event__aside {
+  position: sticky;
+  top: 2rem;
+}
+/* No cover → content is the only child, so let it span the full width. */
+.event__main:only-child {
+  grid-column: 1 / -1;
+}
+.event__hero {
+  margin: 0;
+}
+.event__hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+@media (max-width: 760px) {
+  .event__layout {
+    grid-template-columns: 1fr;
+  }
+  .event__aside {
+    position: static;
+  }
+}
+.event__back {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.event__back:hover {
+  color: var(--color-dark);
+  opacity: 0.6;
+}
+.event__title {
+  margin: 0 0 1.5rem;
+  text-align: left;
+}
+/* Date & location blocks (after luma.com): icon tile + two text lines. */
+.event__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 0 2rem;
+}
+.event__fact {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.event__cal,
+.event__fact-icon {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(35, 40, 43, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.event__cal-month {
+  width: 100%;
+  padding: 3px 0;
+  background: rgba(35, 40, 43, 0.07);
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.event__cal-day {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  line-height: 1;
+}
+.event__fact-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.event__fact-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.event__fact-title {
+  font-family: var(--font-base);
+  font-size: 18px;
+  line-height: 1.25;
+}
+.event__fact-sub {
+  font-size: 15px;
+  color: rgba(35, 40, 43, 0.55);
+}
+.event__fact-ext {
+  margin-left: 0.25rem;
+  color: rgba(35, 40, 43, 0.4);
+  vertical-align: middle;
+}
+.event__fact--link:hover .event__fact-title {
+  text-decoration: underline;
+}
+.event__fact--link:hover .event__fact-ext {
+  color: var(--color-dark);
+}
+.event__text {
+  font-family: var(--font-base); /* Herokid */
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+}
+.event__text :first-child { margin-top: 0; }
+.event__text :last-child { margin-bottom: 0; }
+.event__cta {
+  margin-top: 2.5rem;
+}
+
+/* --- Events list (after luma.com/user) --------------------- */
+/* Narrow, centered list inside the grid's content column: each event is
+   a square thumbnail on the left with date / title / city on the right. */
+.events {
+  padding-bottom: clamp(60px, 10vw, 120px);
+}
+.events__header,
+.events__group {
+  width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
+}
+.events__header {
+  margin-bottom: 2.5rem;
+}
+.events__group + .events__group {
+  margin-top: 3.5rem;
+}
+.events__group-title {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(35, 40, 43, 0.55);
+}
+.events__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+.event-card {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 1.25rem;
+  align-items: center;
+  color: inherit;
+}
+.event-card__thumb {
+  width: 88px;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-grey);
+}
+.event-card__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.event-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+.event-card__date,
+.event-card__city {
+  font-size: 15px;
+  color: rgba(35, 40, 43, 0.55);
+}
+.event-card__title {
+  font-family: var(--font-base);
+  font-size: 20px;
+  line-height: 1.2;
+}
+.event-card:hover .event-card__title {
+  text-decoration: underline;
+}
+.events__empty {
+  text-align: center;
+  color: rgba(35, 40, 43, 0.55);
 }

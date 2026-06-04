@@ -15,19 +15,33 @@
 
   <link rel="shortcut icon" href="<?= url('assets/images/favicon.png') ?>" type="image/png">
   <link rel="apple-touch-icon" href="<?= url('assets/images/webclip.png') ?>">
-  <?= css('assets/css/main.css') ?>
+  <?= css(['assets/css/reset.css', 'assets/css/fonts.css', 'assets/css/main.css']) ?>
 </head>
 <body class="page-home">
 
   <?php snippet('header') ?>
 
-  <main>
+  <main class="bleed-grid">
     <?php foreach ($page->layout()->toLayouts() as $layout): ?>
       <?php
         $columns = $layout->columns();
         $multi   = $columns->count() > 1;
+
+        // Horizontal placement in the full-bleed grid (see main.css):
+        //   full    → edge-to-edge (hero images)
+        //   wide    → container width (animation, multi-column rows)
+        //   content → reading width (text)
+        $type  = $columns->first()->blocks()->first()?->type();
+        $bleed = match (true) {
+          $type === 'hero'           => 'full',
+          $type === 'section-header' => 'full', // full-bleed background; .header keeps text at reading width
+          $type === 'animation'      => 'full', // full-bleed background; player stays container width
+          $multi                     => 'wide',
+          $type === 'sticker'        => 'wide',
+          default                    => 'content',
+        };
       ?>
-      <div class="layout-row<?= $multi ? ' layout-row--multi' : '' ?>">
+      <div class="layout-row layout-row--<?= $bleed ?><?= $multi ? ' layout-row--multi' : '' ?>">
         <?php foreach ($columns as $column): ?>
           <?php
             // Convert "1/3", "1/2" etc. into a 12-column grid span.
@@ -41,6 +55,8 @@
       </div>
     <?php endforeach ?>
   </main>
+
+  <?php snippet('footer') ?>
 
   <?= js('assets/js/main.js', ['defer' => true]) ?>
 </body>

@@ -8,3 +8,5 @@ fields:
     type: writer
     inline: true
     help: Haupt-Überschrift der Seite (H1).
+  anchor:
+    extends: fields/anchor

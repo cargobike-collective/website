@@ -15,3 +15,5 @@ fields:
       - bold
       - italic
       - link
+  anchor:
+    extends: fields/anchor

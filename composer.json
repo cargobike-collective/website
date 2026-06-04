@@ -1,5 +1,5 @@
 {
-  "name": "cargobike-collective",
+  "name": "cargobike-collective/website",
   "description": "Cargo Bike Collective website built with Kirby",
   "type": "project",
   "keywords": [
@@ -18,7 +18,8 @@
   "homepage": "https://www.cargobike-collective.org/",
   "require": {
     "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
-    "getkirby/cms": "^5.2"
+    "getkirby/cms": "^5.2",
+    "sabre/vobject": "^4.6"
   },
   "config": {
     "allow-plugins": {

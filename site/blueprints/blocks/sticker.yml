@@ -1,0 +1,41 @@
+name: Sticker
+icon: image
+
+# The drag-and-drop canvas (site/plugins/sticker-block) is the primary editor.
+# This structure field defines the storage schema and doubles as a manual
+# fallback in the block drawer. Coordinates are percentages of the canvas.
+fields:
+  stickers:
+    label: Sticker
+    type: structure
+    empty: Noch keine Sticker – im Block auf „Sticker hinzufügen“ klicken.
+    fields:
+      image:
+        label: Datei
+        type: text
+      x:
+        label: X %
+        type: number
+        step: 0.01
+        default: 40
+        width: 1/4
+      y:
+        label: Y %
+        type: number
+        step: 0.01
+        default: 40
+        width: 1/4
+      width:
+        label: Breite %
+        type: number
+        step: 0.01
+        default: 20
+        width: 1/4
+      rotation:
+        label: Rotation °
+        type: number
+        step: 1
+        default: 0
+        width: 1/4
+  anchor:
+    extends: fields/anchor

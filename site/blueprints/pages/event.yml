@@ -4,9 +4,12 @@ title: Event
 num: '{{ page.date.toDate("Ymd") }}'
 
 options:
-  preview: false
+  preview: true
 
 fields:
+  dateHeadline:
+    label: Datum & Ort
+    type: headline
   date:
     label: Datum
     type: date
@@ -16,29 +19,42 @@ fields:
   city:
     label: Stadt
     type: tags
-    min: 1
     max: 1
     separator: ","
-    options:
-      query: site.find("events").children.pluck("city", ",", true)
     width: 1/2
-  link:
-    label: Link
-    type: link
-    help: Externe URL oder interne Seite. Entweder Link oder Beschreibung – nicht beides.
     options:
-      - url
-      - page
-      - email
-      - tel
-    when:
-      text: ""
+      type: query
+      query: site.find("events").children.pluck("city", ",", true)
+    help: Zuordnung der Veranstaltung (z. B. Hamburg oder Stuttgart) für Filter.
+  street:
+    label: Straße & Hausnummer
+    type: text
+  zip:
+    label: PLZ
+    type: text
+    width: 1/4
+  addressCity:
+    label: Stadt
+    type: text
+    width: 3/4
+    help: Abweichender Ort der Veranstaltung (optional).
+  contentHeadline:
+    label: Inhalt
+    type: headline
+  cover:
+    label: Bild
+    type: files
+    query: page.images
+    multiple: false
+    max: 1
+    uploads:
+      template: image
   text:
     label: Beschreibung
     type: textarea
     size: large
     font: sans-serif
-    help: Entweder Beschreibung oder Link – nicht beides.
+    help: Beschreibung der Veranstaltung (optional).
     buttons:
       - headlines
       - bold
@@ -46,5 +62,20 @@ fields:
       - link
       - ul
       - ol
-    when:
-      link: ""
+  link:
+    label: Button-Link
+    type: link
+    width: 1/2
+    help: Externe URL oder interne Seite (optional).
+    options:
+      - url
+      - page
+      - email
+      - tel
+  buttonCaption:
+    label: Button-Link Beschriftung
+    type: text
+    width: 1/2
+    default: Zur Veranstaltung
+    placeholder: Zur Veranstaltung
+    help: Beschriftung des Buttons (nur relevant, wenn ein Link gesetzt ist).

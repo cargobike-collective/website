@@ -2,15 +2,31 @@ Title: CRITICAL MASS Hamburg
 
 ----
 
-Date: 2026-05-29
+Cover: 
 
 ----
 
-City: Hamburg
+Date: 2026-05-29 00:00:00
 
 ----
 
-Link: https://criticalmass.in/hamburg
+City: 
+
+----
+
+Street: Teststraße 36
+
+----
+
+Zip: 22089
+
+----
+
+Addresscity: Stade
+
+----
+
+Link: 
 
 ----
 

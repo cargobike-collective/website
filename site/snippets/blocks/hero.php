@@ -2,9 +2,10 @@
 /** @var \Kirby\Cms\Block $block */
 $image  = $block->image()->toFile();
 $anchor = $block->anchor()->or('start');
+$height = $block->height()->or('large')->value();
 ?>
 <?php if ($image): ?>
-<section id="<?= $anchor->html() ?>" class="hero">
+<section id="<?= $anchor->html() ?>" class="hero hero--<?= $height ?>">
   <img
     class="hero__image"
     src="<?= $image->url() ?>"

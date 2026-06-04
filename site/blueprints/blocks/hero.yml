@@ -15,6 +15,16 @@ fields:
     label: Alt-Text
     type: text
     help: Bildbeschreibung für Screenreader und SEO.
+  height:
+    label: Höhe
+    type: select
+    default: large
+    options:
+      large: Groß (85vh)
+      medium: Mittel (60vh)
+      small: Klein (40vh)
+      auto: Original-Bildverhältnis
+    width: 1/2
   anchor:
     label: Anker-ID
     type: text

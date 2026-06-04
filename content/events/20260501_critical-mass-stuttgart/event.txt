@@ -2,11 +2,43 @@ Title: CRITICAL MASS Stuttgart
 
 ----
 
-Date: 2026-05-01
+Date: 2026-05-01 13:30:00
 
 ----
 
-City: Stuttgart
+City: München
+
+----
+
+Street: Marienplatz 1
+
+----
+
+Zip: 70178
+
+----
+
+Addresscity: Tübingen
+
+----
+
+Cover: - file://a8htzumdtiltus96
+
+----
+
+Text:
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+
+## Stet clita kasd gubergren
+
+Sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. **At vero eos** et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+- Duis autem vel eum iriure dolor
+- Consequat, vel illum dolore eu feugiat
+- Nam liber tempor cum soluta nobis
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
 
 ----
 
@@ -14,7 +46,7 @@ Link: https://luma.com/rh9y97ij
 
 ----
 
-Text: 
+Buttoncaption: Test123
 
 ----
 

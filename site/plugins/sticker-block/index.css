@@ -1,0 +1,127 @@
+/* Sticker block — Panel editor */
+
+.sticker-block__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.sticker-block__count {
+  color: var(--color-text-dimmed, #71717a);
+  font-size: var(--text-sm, 0.875rem);
+}
+
+/* Canvas mirrors the frontend aspect ratio (1280 x 600) so editing is WYSIWYG.
+   overflow is visible — like the frontend — so spilled/rotated stickers stay
+   reachable; the surrounding margin keeps them clear of the toolbars. */
+.sticker-block__canvas {
+  position: relative;
+  width: 100%;
+  margin: 1.75rem 0;
+  aspect-ratio: 1280 / 600;
+  min-height: 220px;
+  overflow: visible;
+  background-color: var(--color-light, #f8f9ff);
+  background-image:
+    linear-gradient(45deg, rgba(0, 0, 0, 0.035) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.035) 75%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.035) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.035) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+  border: 1px solid var(--color-border, #e4e4e7);
+  border-radius: var(--rounded, 4px);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.sticker-block__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  color: var(--color-text-dimmed, #71717a);
+  font-size: 0.9rem;
+}
+
+.sticker-edit {
+  position: absolute;
+  transform-origin: center center;
+  cursor: grab;
+}
+.sticker-edit.is-selected {
+  cursor: grabbing;
+}
+.sticker-edit__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+.sticker-edit__missing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px dashed var(--color-red, #e3342f);
+  color: var(--color-red, #e3342f);
+  font-size: 0.7rem;
+  text-align: center;
+  word-break: break-all;
+}
+.sticker-edit.is-selected::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  outline: 2px solid var(--color-blue, #4271ae);
+  pointer-events: none;
+}
+
+.sticker-edit__handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 2px solid var(--color-blue, #4271ae);
+  z-index: 2;
+}
+.sticker-edit__rotate {
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  /* Custom circular-arrow cursor (no native "rotate" cursor exists). */
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='28'%20viewBox='0%200%2024%2024'%3E%3Cg%20fill='none'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M19%208a8%208%200%201%200%201.9%205'%20stroke='%23fff'%20stroke-width='4'/%3E%3Cpath%20d='M19%203v5h-5'%20stroke='%23fff'%20stroke-width='4'/%3E%3Cpath%20d='M19%208a8%208%200%201%200%201.9%205'%20stroke='%23000'%20stroke-width='2'/%3E%3Cpath%20d='M19%203v5h-5'%20stroke='%23000'%20stroke-width='2'/%3E%3C/g%3E%3C/svg%3E")
+    14 14, grab;
+}
+.sticker-edit__rotate::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 2px;
+  height: 14px;
+  background: var(--color-blue, #4271ae);
+  transform: translateX(-50%);
+}
+.sticker-edit__resize {
+  right: -8px;
+  bottom: -8px;
+  border-radius: 3px;
+  cursor: nwse-resize;
+}
+
+.sticker-block__tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.sticker-block__readout {
+  margin-left: 0.25rem;
+  color: var(--color-text-dimmed, #71717a);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
