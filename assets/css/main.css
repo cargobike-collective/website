@@ -324,6 +324,115 @@ main {
   user-select: none;
 }
 
+/* --- Events block (list of event pills + city filter) ------ */
+.events__filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.events__tab {
+  padding: 8px 20px 6px;
+  border: 1px solid var(--color-dark);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--color-dark);
+  font-family: var(--font-base);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.events__tab:hover,
+.events__tab.is-active {
+  background: var(--color-signal);
+  border-color: var(--color-signal);
+}
+.events__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.events__item {
+  margin-bottom: 20px;
+}
+.events__item[hidden] {
+  display: none;
+}
+.events__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 60px;
+  padding-left: 30px;
+  background: var(--color-grey);
+  border-radius: 81px;
+  color: var(--color-dark);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.events__link:hover {
+  background: var(--color-signal);
+}
+.events__info {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+.events__day,
+.events__date {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 21px;
+  white-space: nowrap;
+}
+.events__day {
+  text-transform: uppercase;
+}
+.events__title {
+  font-family: var(--font-base);
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.events__location {
+  display: none; /* used only for filtering */
+}
+.events__cta {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  gap: 12px;
+  padding-inline: 30px;
+  background: var(--color-dark);
+  color: var(--color-light);
+  border-radius: 57px;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.events__cta-icon {
+  flex: 0 0 auto;
+}
+@media (max-width: 600px) {
+  .events__day,
+  .events__cta-text {
+    display: none;
+  }
+  .events__title,
+  .events__date {
+    font-size: 14px;
+  }
+  .events__link {
+    padding-left: 20px;
+  }
+  .events__cta {
+    padding-inline: 18px;
+  }
+}
+
 /* --- Feature (column heading + italic paragraph) ----------- */
 .feature {
   padding: 30px;
@@ -613,9 +722,9 @@ main {
 }
 
 /* --- Events list (after luma.com/user) --------------------- */
-/* Narrow, centered list inside the grid's content column: each event is
-   a square thumbnail on the left with date / title / city on the right. */
-.events {
+/* The /events listing page (main.events). Scoped to the element so its
+   classes don't collide with the home "events" block (section.events). */
+main.events {
   padding-bottom: clamp(60px, 10vw, 120px);
 }
 .events__header,

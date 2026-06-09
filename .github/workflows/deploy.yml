@@ -1,0 +1,53 @@
+name: Deploy to netcup (dev)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Never let two deploys run at once.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # kirby/ and vendor/ are gitignored, so build them from composer.lock.
+      - name: Set up PHP + Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: ctype, curl, dom, fileinfo, gd, iconv, intl, mbstring, openssl, simplexml
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies (builds kirby/ + vendor/)
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Deploy with rsync over SSH
+        env:
+          # sshpass -e reads the password from $SSHPASS (no password in argv/logs).
+          SSHPASS: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+          rsync -rlptz --delete --stats \
+            --no-owner --no-group \
+            --rsync-path=/rsync \
+            -e "sshpass -e ssh -p 22 -o StrictHostKeyChecking=accept-new" \
+            --exclude=/.git \
+            --exclude=/.github \
+            --exclude=/content \
+            --exclude=/media \
+            --exclude=/site/accounts \
+            --exclude=/site/sessions \
+            --exclude=/site/cache \
+            --exclude=/site/config/.license \
+            --exclude=.DS_Store \
+            ./ \
+            hosting203422@hosting203422.ae93f.netcup.net:/dev.cargobike-collective.org/httpdocs/

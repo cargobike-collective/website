@@ -38,3 +38,22 @@
     if (e.key === 'Escape' && nav.classList.contains('is-open')) shut();
   });
 })();
+
+// Events block: filter the list by city
+(() => {
+  document.querySelectorAll('.events').forEach((section) => {
+    const tabs = section.querySelectorAll('.events__tab');
+    const items = section.querySelectorAll('.events__item');
+    if (!tabs.length) return;
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const filter = tab.dataset.filter;
+        tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+        items.forEach((item) => {
+          item.hidden = filter !== 'all' && item.dataset.city !== filter;
+        });
+      });
+    });
+  });
+})();

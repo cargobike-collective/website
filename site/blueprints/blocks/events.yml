@@ -1,0 +1,20 @@
+name: Events
+icon: calendar
+preview: fields
+
+fields:
+  count:
+    label: Anzahl Events
+    type: number
+    default: 5
+    min: 0
+    step: 1
+    help: Wie viele Events angezeigt werden – 0 = alle.
+    width: 1/2
+  showFilter:
+    label: Stadt-Filter anzeigen
+    type: toggle
+    default: true
+    width: 1/2
+  anchor:
+    extends: fields/anchor
