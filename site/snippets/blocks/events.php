@@ -34,9 +34,15 @@ $weekdays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 
   <ul class="events__items">
     <?php foreach ($list as $event): ?>
-      <?php $date = $event->date(); $city = $event->city()->value(); ?>
+      <?php
+        $date = $event->date();
+        $city = $event->city()->value();
+        // No own content on the detail page → link straight to the external URL.
+        $external = $event->text()->isEmpty() && $event->link()->isNotEmpty();
+        $href     = $external ? $event->link()->toUrl() : $event->url();
+      ?>
       <li class="events__item" data-city="<?= esc($city, 'attr') ?>">
-        <a class="events__link" href="<?= $event->url() ?>">
+        <a class="events__link" href="<?= esc($href) ?>"<?= $external ? ' target="_blank" rel="noopener"' : '' ?>>
           <span class="events__info">
             <span class="events__day"><?= $weekdays[(int) $date->toDate('w')] ?></span>
             <span class="events__date"><?= $date->toDate('d.m.Y') ?></span>
