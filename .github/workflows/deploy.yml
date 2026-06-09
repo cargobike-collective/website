@@ -36,12 +36,22 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq sshpass
+          REMOTE='hosting203422@hosting203422.ae93f.netcup.net'
+          ROOT='/dev.cargobike-collective.org/httpdocs'
+          SSH='sshpass -e ssh -p 22 -o StrictHostKeyChecking=accept-new'
+
+          # --no-perms: netcup's rsync rejects setting permissions mid-transfer,
+          # so we let the transfer succeed and fix permissions in the next step.
           rsync -rltz --delete --stats \
             --no-perms --no-owner --no-group \
-            --rsync-path='umask 022 && /rsync' \
-            -e "sshpass -e ssh -p 22 -o StrictHostKeyChecking=accept-new" \
+            --rsync-path=/rsync \
+            -e "$SSH" \
             --exclude=/.git \
             --exclude=/.github \
+            --exclude=/.gitignore \
+            --exclude=/.gitattributes \
+            --exclude=/.editorconfig \
+            --exclude=/README.md \
             --exclude=/content \
             --exclude=/media \
             --exclude=/site/accounts \
@@ -50,4 +60,8 @@ jobs:
             --exclude=/site/config/.license \
             --exclude=.DS_Store \
             ./ \
-            hosting203422@hosting203422.ae93f.netcup.net:/dev.cargobike-collective.org/httpdocs/
+            "$REMOTE:$ROOT/"
+
+          # rsync writes files with a restrictive umask, which 403s the site
+          # (Apache can't even read .htaccess). Set web-readable perms (755/644).
+          $SSH "$REMOTE" "chmod -R u=rwX,go=rX '$ROOT'"
