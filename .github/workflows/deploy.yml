@@ -36,8 +36,8 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq sshpass
-          rsync -rlptz --delete --stats \
-            --no-owner --no-group \
+          rsync -rltz --delete --stats \
+            --no-perms --no-owner --no-group \
             --rsync-path=/rsync \
             -e "sshpass -e ssh -p 22 -o StrictHostKeyChecking=accept-new" \
             --exclude=/.git \
