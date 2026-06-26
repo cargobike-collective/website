@@ -29,14 +29,8 @@ fields:
     default: true
     width: 1/3
   sectionBackground:
+    extends: fields/color
     label: Hintergrundfarbe
-    type: color
-    mode: options
-    options:
-      "#f0ff39": Signal-Gelb
-      "#f0fc62": Hellgrün
-      "#23282b": Asphalt
-      "#f8f9ff": Off-White
     help: Optional – Hintergrundfarbe über die volle Breite.
     width: 1/2
   anchor:

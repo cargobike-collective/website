@@ -9,7 +9,6 @@
   --color-bg:     #fff;     /* page background (Webflow body default) */
   --color-light:  #f8f9ff;  /* off-white: light text/borders on dark */
   --color-signal: #f0ff39;  /* filled buttons / logo hover */
-  --color-accent: #f0fc62;  /* link hover */
   --color-grey:   #d8d8d8;
 
   --font-base: "Herokid", system-ui, sans-serif;
@@ -675,7 +674,7 @@ main {
   display: block;
   height: 2px;
   width: 100%;
-  background: var(--color-accent);
+  background: var(--color-signal);
   border-radius: 2px;
 }
 
@@ -713,7 +712,7 @@ main {
   color: var(--color-light);
   padding: 0;
 }
-.nav__close:hover { color: var(--color-accent); }
+.nav__close:hover { color: var(--color-signal); }
 
 .nav__list {
   flex: 1;
@@ -728,7 +727,7 @@ main {
   color: var(--color-light);
   transition: color 0.2s ease;
 }
-.nav__link:hover { color: var(--color-accent); }
+.nav__link:hover { color: var(--color-signal); }
 
 .nav__menu-footer {
   padding-block: 2rem;

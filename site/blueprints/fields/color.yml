@@ -1,0 +1,7 @@
+label: Farbe
+type: color
+mode: options
+options:
+  "#f0ff39": Signal-Gelb
+  "#23282b": Asphalt
+  "#f8f9ff": Off-White
