@@ -1,0 +1,92 @@
+name: Formular
+icon: email
+preview: fields
+
+fields:
+  fields:
+    label: Felder
+    type: structure
+    empty: Noch keine Felder angelegt.
+    fields:
+      label:
+        label: Bezeichnung
+        type: text
+        width: 1/2
+        help: Für Screenreader (visuell nur der Platzhalter).
+      name:
+        label: Feldname
+        type: text
+        width: 1/2
+        help: 'name-Attribut. Muss zum Ziel passen (z. B. EMAIL bei Brevo).'
+      type:
+        label: Typ
+        type: select
+        default: text
+        empty: false
+        options:
+          text: Text
+          email: E-Mail
+          tel: Telefon
+          textarea: Mehrzeilig
+        width: 1/3
+      placeholder:
+        label: Platzhalter
+        type: text
+        width: 1/3
+      width:
+        label: Breite
+        type: select
+        default: "1/1"
+        empty: false
+        options:
+          "1/1": Voll
+          "1/2": Halb
+        width: 1/3
+      required:
+        label: Pflichtfeld
+        type: toggle
+        default: false
+  action:
+    label: Ziel (action-URL)
+    type: text
+    width: 2/3
+    help: 'Wohin gesendet wird. Leer lassen = aktuelle Seite.'
+  method:
+    label: Methode
+    type: select
+    default: post
+    empty: false
+    options:
+      post: POST
+      get: GET
+    width: 1/3
+  submit:
+    label: Button-Text
+    type: text
+    default: Senden
+    width: 1/2
+  anchor:
+    extends: fields/anchor
+    width: 1/2
+  consent:
+    label: Einwilligungs-Checkbox anzeigen
+    type: toggle
+    default: false
+  consentName:
+    label: Checkbox-Feldname
+    type: text
+    default: OPT_IN
+    width: 1/3
+    when:
+      consent: true
+  consentText:
+    label: Einwilligungstext
+    type: textarea
+    size: small
+    width: 2/3
+    buttons:
+      - bold
+      - italic
+      - link
+    when:
+      consent: true
