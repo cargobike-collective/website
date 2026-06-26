@@ -11,5 +11,5 @@ sections:
     template: event
     create: event
     sortBy: date desc
-    info: "{{ page.date.toDate('d.m.Y, H:i') }} – {{ page.city }}"
+    info: "{{ page.date.toDate('d.m.Y, H:i') }} – {{ page.tags }}"
     empty: Noch keine Events angelegt.

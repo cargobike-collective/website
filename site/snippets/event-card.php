@@ -19,8 +19,8 @@ $cover = $event->cover()->toFile() ?? $event->image();
       <span class="event-card__date"><?= $event->date()->toDate('d.m.Y, H:i') ?> Uhr</span>
     <?php endif ?>
     <span class="event-card__title"><?= $event->title()->html() ?></span>
-    <?php if ($event->city()->isNotEmpty()): ?>
-      <span class="event-card__city"><?= $event->city()->html() ?></span>
+    <?php if ($event->tags()->isNotEmpty()): ?>
+      <span class="event-card__tags"><?= $event->tags()->html() ?></span>
     <?php endif ?>
   </span>
 </a>

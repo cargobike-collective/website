@@ -15,7 +15,7 @@ $utc    = new DateTimeZone('UTC');
 $start  = new DateTime($page->date()->value() ?: 'now', $tz);
 $allDay = $start->format('His') === '000000';
 
-$addrCity = $page->addressCity()->or($page->city())->value();
+$addrCity = $page->addressCity()->or($page->tags())->value();
 $zipCity  = trim($page->zip()->value() . ' ' . $addrCity);
 $location = trim(implode(', ', array_filter([$page->street()->value(), $zipCity])));
 

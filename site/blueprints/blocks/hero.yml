@@ -1,20 +1,20 @@
-name: Hero
+name: Hero / Slider
 icon: image
 preview: image
 
 fields:
   image:
-    label: Bild
+    label: Bilder
     type: files
     query: page.images
-    multiple: false
-    max: 1
+    multiple: true
     uploads:
       template: image
+    help: 'Mehrere Bilder werden automatisch zu einem Slider.'
   alt:
     label: Alt-Text
     type: text
-    help: Bildbeschreibung für Screenreader und SEO.
+    help: 'Fällt zurück, wenn ein Bild keinen eigenen Alt-Text hat. Für Screenreader und SEO.'
   height:
     label: Höhe
     type: select
@@ -28,5 +28,10 @@ fields:
   anchor:
     label: Anker-ID
     type: text
-    default: start
     width: 1/2
+    help: 'Leer lassen: Das erste Hero auf der Seite wird automatisch „#start".'
+  autoplay:
+    label: Automatisch weiterblättern
+    type: toggle
+    default: false
+    help: 'Nur bei mehreren Bildern (Slider). Pausiert bei Interaktion.'

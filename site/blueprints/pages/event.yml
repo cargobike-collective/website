@@ -16,16 +16,15 @@ fields:
     time: true
     display: DD.MM.YYYY
     width: 1/2
-  city:
-    label: Stadt
+  tags:
+    label: Tags
     type: tags
-    max: 1
     separator: ","
     width: 1/2
     options:
       type: query
-      query: site.find("events").children.pluck("city", ",", true)
-    help: Zuordnung der Veranstaltung (z. B. Hamburg oder Stuttgart) für Filter.
+      query: site.find("events").children.pluck("tags", ",", true)
+    help: 'Schlagwort zum Gruppieren und Filtern auf der Startseite – z. B. die Stadt oder die Art der Veranstaltung.'
   street:
     label: Straße & Hausnummer
     type: text

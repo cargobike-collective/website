@@ -17,7 +17,7 @@
   --font-condensed: "Herokid Condensed", "Herokid", system-ui, sans-serif;
   --font-narrow: "Herokid Narrow", "Herokid", system-ui, sans-serif;
 
-  --container-max: 1280px;  /* "wide" range: animation, feature columns */
+  --container-max: 1240px;  /* "wide" range: animation, feature columns, events */
   --content-width: 950px;   /* "content" range: reading width for text */
   --container-pad: clamp(1rem, 4vw, 3rem);
 
@@ -139,6 +139,97 @@ main {
 }
 .hero--auto .hero__image {
   height: auto;
+}
+
+/* Slider variant: a horizontal scroll-snap track. Works without JS — you can
+   still swipe/scroll through the images. JS adds .is-ready to reveal the
+   dots/arrows and wire up clicks, keyboard and (optional) autoplay. */
+.hero--slider {
+  position: relative;
+}
+.hero__track {
+  display: flex;
+  align-items: flex-start;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;            /* Firefox */
+}
+.hero__track::-webkit-scrollbar {   /* WebKit */
+  display: none;
+}
+.hero__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+/* Controls are progressive enhancement: hidden until JS marks the slider ready. */
+.hero__dots,
+.hero__nav {
+  display: none;
+}
+.hero--slider.is-ready .hero__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+.hero__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.hero__dot:hover {
+  background: #fff;
+}
+.hero__dot.is-active {
+  background: #fff;
+  transform: scale(1.25);
+}
+.hero--slider.is-ready .hero__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(35, 40, 43, 0.4);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.hero__nav:hover {
+  background: rgba(35, 40, 43, 0.65);
+}
+.hero__nav--prev { left: 1rem; }
+.hero__nav--next { right: 1rem; }
+@media (max-width: 600px) {
+  /* On touch screens swipe instead of arrows. */
+  .hero--slider.is-ready .hero__nav {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__track {
+    scroll-behavior: auto;
+  }
 }
 
 /* --- Intro ------------------------------------------------- */
@@ -324,7 +415,7 @@ main {
   user-select: none;
 }
 
-/* --- Events block (list of event pills + city filter) ------ */
+/* --- Events block (list of event pills + tag filter) ------- */
 .events__filter {
   display: flex;
   flex-wrap: wrap;
@@ -780,7 +871,7 @@ main.events {
   min-width: 0;
 }
 .event-card__date,
-.event-card__city {
+.event-card__tags {
   font-size: 15px;
   color: rgba(35, 40, 43, 0.55);
 }

@@ -1,24 +1,25 @@
 <?php
 /** @var \Kirby\Cms\Block $block */
-$events = site()->find('events')?->children()->listed();
-if (!$events || $events->count() === 0) {
-  return;
-}
+$events = site()->find('events')?->children()->listed() ?? new Kirby\Cms\Pages();
 
-// Upcoming events first (soonest), falling back to the most recent past ones
-// so the block never shows up empty. Limited by the configurable count.
-$now      = time();
-$upcoming = $events->filter(fn ($e) => $e->date()->toDate() >= $now)->sortBy('date', 'asc');
-$list     = $upcoming->isNotEmpty() ? $upcoming : $events->sortBy('date', 'desc');
+// Upcoming events first (soonest), falling back to the most recent past ones.
+// Limited by the configurable count. Stays an empty collection when there are
+// no events, so the section renders a "Keine Events gefunden" message instead.
+$list = $events;
+if ($list->isNotEmpty()) {
+  $now      = time();
+  $upcoming = $list->filter(fn ($e) => $e->date()->toDate() >= $now)->sortBy('date', 'asc');
+  $list     = $upcoming->isNotEmpty() ? $upcoming : $list->sortBy('date', 'desc');
 
-$count = $block->count()->toInt();
-if ($count > 0) {
-  $list = $list->limit($count);
+  $count = $block->count()->toInt();
+  if ($count > 0) {
+    $list = $list->limit($count);
+  }
 }
 
 $anchor     = $block->anchor();
-$cities     = $list->pluck('city', ',', true);
-$showFilter = $block->showFilter()->toBool() && count($cities) > 1;
+$tags       = $list->pluck('tags', ',', true);
+$showFilter = $block->showFilter()->toBool() && count($tags) > 1;
 
 $weekdays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 ?>
@@ -26,28 +27,31 @@ $weekdays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
   <?php if ($showFilter): ?>
     <div class="events__filter">
       <button class="events__tab is-active" type="button" data-filter="all">Alle</button>
-      <?php foreach ($cities as $city): ?>
-        <button class="events__tab" type="button" data-filter="<?= esc($city, 'attr') ?>"><?= esc($city) ?></button>
+      <?php foreach ($tags as $tag): ?>
+        <button class="events__tab" type="button" data-filter="<?= esc($tag, 'attr') ?>"><?= esc($tag) ?></button>
       <?php endforeach ?>
     </div>
   <?php endif ?>
 
+  <?php if ($list->isEmpty()): ?>
+    <p class="events__empty">Keine Events gefunden.</p>
+  <?php else: ?>
   <ul class="events__items">
     <?php foreach ($list as $event): ?>
       <?php
         $date = $event->date();
-        $city = $event->city()->value();
+        $tag  = $event->tags()->value();
         // No own content on the detail page → link straight to the external URL.
         $external = $event->text()->isEmpty() && $event->link()->isNotEmpty();
         $href     = $external ? $event->link()->toUrl() : $event->url();
       ?>
-      <li class="events__item" data-city="<?= esc($city, 'attr') ?>">
+      <li class="events__item" data-tag="<?= esc($tag, 'attr') ?>">
         <a class="events__link" href="<?= esc($href) ?>"<?= $external ? ' target="_blank" rel="noopener"' : '' ?>>
           <span class="events__info">
             <span class="events__day"><?= $weekdays[(int) $date->toDate('w')] ?></span>
             <span class="events__date"><?= $date->toDate('d.m.Y') ?></span>
             <span class="events__title"><?= $event->title()->html() ?></span>
-            <span class="events__location"><?= esc($city) ?></span>
+            <span class="events__location"><?= esc($tag) ?></span>
           </span>
           <span class="events__cta">
             <span class="events__cta-text">Event Details</span>
@@ -59,4 +63,5 @@ $weekdays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
       </li>
     <?php endforeach ?>
   </ul>
+  <?php endif ?>
 </section>

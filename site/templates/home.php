@@ -24,6 +24,12 @@
   <main class="bleed-grid">
     <?php foreach ($page->layout()->toLayouts() as $layout): ?>
       <?php
+        // Skip empty layout rows so they don't occupy a grid track and add a
+        // stray row-gap (e.g. blank rows the Panel can leave behind).
+        if ($layout->isEmpty()) {
+          continue;
+        }
+
         $columns = $layout->columns();
         $multi   = $columns->count() > 1;
 
@@ -37,6 +43,7 @@
           $type === 'section-header' => 'full', // full-bleed background; .header keeps text at reading width
           $type === 'animation'      => 'full', // full-bleed background; player stays container width
           $multi                     => 'wide',
+          $type === 'events'         => 'wide', // same width as the 3-column feature rows
           $type === 'sticker'        => 'wide',
           default                    => 'content',
         };

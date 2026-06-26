@@ -6,7 +6,7 @@
  */
 
 $date  = $page->date();
-$city  = $page->city();
+$tag   = $page->tags();
 $link  = $page->link();
 $text  = $page->text();
 $cover = $page->cover()->toFile();
@@ -18,7 +18,7 @@ $monthsAbbr = [1 => 'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Se
 
 // Address for the location block: street as the title, "zip city" beneath it.
 // Uses the address-specific city, falling back to the categorization tag.
-$addrCity    = $page->addressCity()->or($city)->value();
+$addrCity    = $page->addressCity()->or($tag)->value();
 $street      = $page->street()->value() ?? '';
 $zipCity     = trim($page->zip()->value() . ' ' . $addrCity);
 $locTitle    = $street !== '' ? $street : $zipCity;
